@@ -1,12 +1,6 @@
-@import "tailwindcss";
-
-@theme {
-  --color-primary: #2E7D32;
-  --color-primary-dark: #1B5E20;
-  --color-primary-light: #4CAF50;
-  --color-gold: #F9A825;
-  --color-light-green: #F1F8E9;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   box-sizing: border-box;
@@ -16,6 +10,6 @@
 
 body {
   font-family: 'Hind Siliguri', sans-serif;
-  background-color: #F1F8E9;
-  color: #1A1A1A;
+  background-color: #f8fafc;
+  color: #1e293b;
 }
