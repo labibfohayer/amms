@@ -12,8 +12,8 @@ const hindSiliguri = Hind_Siliguri({
 });
 
 export const metadata: Metadata = {
-  title: "AMMS | আল মদিনা মাদ্রাসা",
-  description: "আল মদিনা মডেল মাদ্রাসা ম্যানেজমেন্ট সিস্টেম",
+  title: "AMMS | আল-মদিনা মডেল মাদ্রাসা",
+  description: "আল-মদিনা মডেল মাদ্রাসার সম্পূর্ণ ডিজিটাল ম্যানেজমেন্ট সিস্টেম",
   manifest: "/manifest.json",
 };
 

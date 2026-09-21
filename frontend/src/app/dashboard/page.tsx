@@ -24,7 +24,7 @@ export default function Dashboard() {
     return (
         <AppLayout title="ড্যাশবোর্ড">
             <div className="mb-6">
-                <h2 className="text-xl font-bold text-primary">আস-সালামু আলাইকুম, {user.name_bn}!</h2>
+                <h2 className="text-2xl font-bold text-primary-dark mb-1">আস-সালামু আলাইকুম, {user.name_bn || 'অধ্যক্ষ মহোদয়'}!</h2>
                 <p className="text-sm text-gray-500">{new Date().toLocaleDateString('bn-BD', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
 
@@ -35,13 +35,13 @@ export default function Dashboard() {
             {user.role === 'teacher' && (
                 <>
                     <div className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-green-500 mb-6">
-                        <h3 className="text-gray-500 text-sm">এই মাসের বেতন</h3>
-                        <p className="text-xl font-bold text-green-700">৳১৫,০০০ — পরিশোধিত ✓</p>
+                        <h3 className="text-gray-500 text-sm">আপনার বর্তমান বেতন অবস্থা</h3>
+                        <p className="text-xl font-bold text-green-700">এই মাসের বেতন পরিশোধ করা হয়েছে</p>
                     </div>
-                    <h3 className="font-bold text-gray-700 mb-3">আজকের কাজ</h3>
-                    <div className="grid grid-cols-2 gap-3">
+                    <h3 className="font-bold text-gray-700 mb-3">দ্রুত কাজ</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <QuickAction href="/attendance" icon={<UserCheck />} text="উপস্থিতি নিন" />
-                        <QuickAction href="/exams" icon={<FileText />} text="নম্বর দিন" />
+                        <QuickAction href="/exams" icon={<FileText />} text="রেজাল্ট এন্ট্রি" />
                         <QuickAction href="/notices/add" icon={<Bell />} text="নোটিশ দিন" />
                     </div>
                 </>
@@ -49,8 +49,8 @@ export default function Dashboard() {
 
              {user.role === 'staff' && (
                 <div className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-green-500 mb-6">
-                    <h3 className="text-gray-500 text-sm">এই মাসের বেতন</h3>
-                    <p className="text-xl font-bold text-green-700">৳১০,০০০ — পরিশোধিত ✓</p>
+                    <h3 className="text-gray-500 text-sm">আপনার বর্তমান বেতন অবস্থা</h3>
+                    <p className="text-xl font-bold text-green-700">এই মাসের বেতন পরিশোধ করা হয়েছে</p>
                 </div>
             )}
         </AppLayout>
@@ -59,7 +59,7 @@ export default function Dashboard() {
 
 function QuickAction({ href, icon, text }: { href: string; icon: React.ReactNode; text: string }) {
     return (
-        <Link href={href} className="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm hover:bg-gray-50 border border-gray-100">
+        <Link href={href} className="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm hover:bg-primary/5 hover:text-primary transition-all border border-gray-100 h-full">
             <div className="text-primary mb-2">{icon}</div>
             <span className="text-sm font-medium text-gray-700">{text}</span>
         </Link>
@@ -81,31 +81,35 @@ function PrincipalDashboard() {
 
     return (
         <>
-            <div className="grid grid-cols-3 gap-3 mb-6">
-                <StatCard title="মোট ছাত্র" value={stats.total_students} color="blue" icon={<Users size={20} />} />
-                <StatCard title="আজ উপস্থিত" value={stats.today_present} color="green" icon={<UserCheck size={20} />} />
-                <StatCard title="আজ অনুপস্থিত" value={stats.today_absent} color="red" icon={<UserX size={20} />} />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <StatCard title="মোট ছাত্র" value={stats.total_students} color="blue" icon={<Users size={24} />} />
+                <StatCard title="আজ উপস্থিত" value={stats.today_present} color="green" icon={<UserCheck size={24} />} />
+                <StatCard title="আজ অনুপস্থিত" value={stats.today_absent} color="red" icon={<UserX size={24} />} />
             </div>
             
-            <div className="space-y-4 mb-6">
-                <div className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-red-500 flex justify-between items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div className="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-red-500 flex justify-between items-center hover:shadow-md transition-shadow">
                     <div>
-                        <h3 className="text-gray-500 text-sm">মোট বকেয়া ফি</h3>
-                        <p className="text-xl font-bold text-red-600">৳{stats.total_due_fees}</p>
+                        <h3 className="text-gray-500 text-sm font-medium mb-1">মোট বকেয়া ফি</h3>
+                        <p className="text-3xl font-bold text-red-600">৳ {stats.total_due_fees}</p>
                     </div>
-                    <DollarSign className="text-red-300" size={32} />
+                    <div className="bg-red-50 p-3 rounded-full">
+                        <DollarSign className="text-red-500" size={32} />
+                    </div>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-orange-500 flex justify-between items-center">
+                <div className="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-orange-500 flex justify-between items-center hover:shadow-md transition-shadow">
                     <div>
-                        <h3 className="text-gray-500 text-sm">স্টাফ</h3>
-                        <p className="font-medium">শিক্ষক: {stats.total_teachers} | কর্মী: {stats.total_staff}</p>
+                        <h3 className="text-gray-500 text-sm font-medium mb-1">মোট স্টাফ</h3>
+                        <p className="text-lg font-medium text-gray-700">শিক্ষক: <span className="font-bold">{stats.total_teachers}</span> | কর্মী: <span className="font-bold">{stats.total_staff}</span></p>
                     </div>
-                    <Users className="text-orange-300" size={32} />
+                    <div className="bg-orange-50 p-3 rounded-full">
+                        <Users className="text-orange-500" size={32} />
+                    </div>
                 </div>
             </div>
 
-            <h3 className="font-bold text-gray-700 mb-3">দ্রুত কাজ</h3>
-            <div className="grid grid-cols-2 gap-3 mb-6">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">দ্রুত কাজ</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
                 <QuickAction href="/students/add" icon={<UserPlus />} text="ছাত্র ভর্তি" />
                 <QuickAction href="/attendance" icon={<UserCheck />} text="উপস্থিতি" />
                 <QuickAction href="/fees" icon={<DollarSign />} text="ফি সংগ্রহ" />
