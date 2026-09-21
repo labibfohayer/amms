@@ -20,9 +20,9 @@ export default function TopBar({ title }: { title: string }) {
                 <Bell size={20} className="md:text-gray-600" />
                 <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 border-2 border-primary md:border-white rounded-full"></span>
             </Link>
-            <div className="w-8 h-8 rounded-full bg-white/20 md:bg-gray-100 flex items-center justify-center cursor-pointer md:hidden">
+            <Link href="/profile" className="w-8 h-8 rounded-full bg-white/20 md:bg-gray-100 flex items-center justify-center cursor-pointer md:hidden hover:bg-white/30 transition-colors">
                 <UserCircle size={24} />
-            </div>
+            </Link>
         </div>
       </div>
     </div>

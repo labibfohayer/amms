@@ -68,7 +68,7 @@ export default function BottomNav() {
       </div>
       
       <div className="hidden md:block mt-auto pt-4 border-t border-white/10">
-         <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl cursor-pointer hover:bg-white/10 transition-colors">
+         <Link href="/profile" className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl cursor-pointer hover:bg-white/10 transition-colors">
             <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white font-bold">
                {user.name_bn?.charAt(0) || 'U'}
             </div>
@@ -76,7 +76,7 @@ export default function BottomNav() {
                 <p className="text-white font-medium text-sm truncate">{user.name_bn || 'Admin'}</p>
                 <p className="text-white/60 text-xs truncate capitalize">{user.role.replace('_', ' ')}</p>
             </div>
-         </div>
+         </Link>
       </div>
     </div>
   );
