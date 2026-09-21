@@ -11,7 +11,7 @@ export interface User {
 export const getUser = (): User | null => {
   if (typeof window === 'undefined') return null;
   const u = localStorage.getItem('user');
-  return u ? JSON.parse(u) : null;
+    return (u && u !== 'undefined') ? JSON.parse(u) : null;
 };
 
 export const isLoggedIn = () => {
