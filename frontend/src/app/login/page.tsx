@@ -17,14 +17,14 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const res = await api.post('/api/auth/login/', { phone, password });
-      const { access, refresh, user } = res.data;
+      const { access, refresh, role, user_id } = res.data;
       localStorage.setItem('access_token', access);
       localStorage.setItem('refresh_token', refresh);
-      localStorage.setItem('user', JSON.stringify(user));
-      toast.success('লগইন সফল হয়েছে!');
-      if (['principal', 'vice_principal', 'managing_director', 'teacher', 'staff'].includes(user.role)) {
+      localStorage.setItem('user', JSON.stringify({ role, user_id }));
+      toast.success('লগইন সফল হয়েছে!');
+      if (['principal', 'vice_principal', 'managing_director', 'teacher', 'staff'].includes(role)) {
         router.push('/dashboard');
-      } else if (user.role === 'guardian') {
+      } else if (role === 'guardian') {
         router.push('/guardian');
       } else {
         router.push('/student');
