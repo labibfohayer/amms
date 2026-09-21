@@ -18,6 +18,7 @@ export default function BottomNav() {
     tabs = [
       { name: 'ড্যাশবোর্ড', href: '/dashboard', icon: Home },
       { name: 'ছাত্র-ছাত্রী', href: '/students', icon: Users },
+      { name: 'শিক্ষক ও স্টাফ', href: '/teachers', icon: Users }, // Reusing Users icon or we could use UserCheck/UserPlus but Users is fine for now
       { name: 'উপস্থিতি', href: '/attendance', icon: CalendarCheck },
       { name: 'ফি/বেতন', href: '/fees', icon: DollarSign },
       { name: 'রিপোর্ট', href: '/reports', icon: MoreHorizontal },
