@@ -15,6 +15,10 @@ export default function Home() {
             if (['principal', 'vice_principal', 'managing_director', 'teacher', 'staff'].includes(user.role)) router.push('/dashboard');
             else if (user.role === 'guardian') router.push('/guardian');
             else router.push('/student');
+        } else {
+            // User is authenticated but user object is missing/broken, force re-login
+            localStorage.clear();
+            router.push('/login');
         }
     }, [user, isAuthenticated, router]);
 
