@@ -32,20 +32,24 @@ class StudentAdmissionSerializer(serializers.ModelSerializer):
         
     def create(self, validated_data):
         with transaction.atomic():
-            phone = validated_data.get('guardian_phone')
-            base_phone = phone
-            counter = 1
-            while User.objects.filter(phone=phone).exists():
-                phone = f"{base_phone}_{counter}"
-                counter += 1
-
+            import uuid
+            # Create user with a temporary phone first to get the auto-generated user_id
+            temp_phone = f"tmp_{uuid.uuid4().hex[:10]}"
+            
+            # Format: DDMMYYYY
+            password = validated_data.get('date_of_birth').strftime('%d%m%Y')
+            
             user = User.objects.create_user(
-                phone=phone,
-                password=validated_data.get('date_of_birth').strftime('%Y%m%d'),
+                phone=temp_phone,
+                password=password,
                 name=validated_data.get('name'),
                 name_bn=validated_data.get('name_bn'),
                 role='student'
             )
+            
+            # Update phone to be the generated user_id (which acts as the login ID)
+            user.phone = user.user_id
+            user.save()
             
             validated_data['user'] = user
             validated_data['student_id'] = user.user_id
@@ -53,7 +57,6 @@ class StudentAdmissionSerializer(serializers.ModelSerializer):
             
             student = Student.objects.create(**validated_data)
             
-            password = validated_data.get('date_of_birth').strftime('%Y%m%d')
             send_admission_notification(student, password)
             
             return student
